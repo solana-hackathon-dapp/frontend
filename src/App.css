@@ -1,1 +1,13 @@
 @import "~antd/dist/antd.css";
+
+.card-container {
+    margin: 20px;
+    border: 1px solid palevioletred;
+    padding: 10px;
+  }
+  
+.flex-column{
+  width:100%; 
+  display:flex; 
+  align-items:center;
+}

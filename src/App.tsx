@@ -12,26 +12,6 @@ import ThankYouPage from "ThankYouPage.js";
 import "./App.css";
 
 function App() {
-  // State: balance (type = number, default value = 0)
-  const [balance, setBalance] = useState<number>(0);
-  // Goki hooks
-  const wallet = useConnectedWallet();
-  const { connect } = useWalletKit();
-  const { disconnect, providerMut } = useSolana();
-
-  const fetchBalance = useCallback(async () => {
-    // TODO: fetch balance
-    if (wallet && providerMut) {
-      let balance = await providerMut.connection.getBalance(wallet.publicKey);
-      return setBalance(balance);
-    }
-    setBalance(0);
-  }, [providerMut, wallet]);
-
-  useEffect(() => {
-    fetchBalance();
-  }, [fetchBalance]);
-
   return (
     <Router>
       <Switch>
