@@ -1,25 +1,18 @@
-import React from 'react';
-import logo from './logo.svg';
+// import React from 'react';
 import './App.css';
+import { Button, Col, Row } from 'antd';
+import WalletInfo from './components/walletInfo';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Row justify='center'>
+      <Col>
+        <WalletInfo address='This is wallet address' balance={0} />
+      </Col>
+      <Col span={24} style={{textAlign: 'center'}}>
+        <Button type='primary'>Connect to your wallet</Button>
+      </Col>
+    </Row>
   );
 }
 
