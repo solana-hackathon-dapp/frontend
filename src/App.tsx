@@ -1,18 +1,34 @@
-// import React from 'react';
-import './App.css';
-import { Button, Col, Row } from 'antd';
-import WalletInfo from './components/walletInfo';
+import { useCallback, useEffect, useState } from "react";
+import { useWalletKit, useSolana, useConnectedWallet } from "@gokiprotocol/walletkit";
+
+import { Button, Col, Row } from "antd";
+
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+import SaaSProductLandingPage from "demos/SaaSProductLandingPage.js";
+import ComponentRenderer from "ComponentRenderer.js";
+import ThankYouPage from "ThankYouPage.js";
+
+import "./App.css";
 
 function App() {
   return (
-    <Row justify='center'>
-      <Col>
-        <WalletInfo address='This is wallet address' balance={0} />
-      </Col>
-      <Col span={24} style={{textAlign: 'center'}}>
-        <Button type='primary'>Connect to your wallet</Button>
-      </Col>
-    </Row>
+    <Router>
+      <Switch>
+        <Route path="/components/:type/:subtype/:name">
+          <ComponentRenderer />
+        </Route>
+        <Route path="/components/:type/:name">
+          <ComponentRenderer />
+        </Route>
+        <Route path="/thank-you">
+          <ThankYouPage />
+        </Route>
+        <Route path="/">
+          <SaaSProductLandingPage />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
