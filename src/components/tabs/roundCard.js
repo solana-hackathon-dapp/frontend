@@ -1,4 +1,4 @@
-import { Card, Layout, Typography, Row, Col, Progress, Button } from 'antd'
+import { Card, Layout, Typography, Row, Col, Progress, Button, Space } from 'antd'
 import React from 'react'
 import { PlayCircleTwoTone } from '@ant-design/icons'
 import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons'
@@ -17,7 +17,7 @@ class RoundCard extends React.Component {
       seconds: parseInt(props.startTimeInSeconds, 10) || 0,
       payoutUp: 1.3,
       payoutDown: 2,
-      price: 66.2,
+      price: 65.2,
       priceChangeFromLock: 0.2,
       lockedPrice: 66.0,
       prizePool: 200
@@ -40,6 +40,7 @@ class RoundCard extends React.Component {
 
   render () {
     const fiveMinute = 300
+    const isUp = this.state.price > this.state.lockedPrice ? true : false
 
     if (this.state.cardState == 'Live')
       return (
@@ -61,12 +62,8 @@ class RoundCard extends React.Component {
                 <Text>{this.state.cardId}</Text>
               </Col>
             </Row>
-            <Progress
-              percent={(this.state.seconds / fiveMinute) * 100}
-              showInfo={false}
-            />
 
-            <div>
+            <div className={isUp ? 'up_component' : 'normal_component'}>
               <Row justify='center'>
                 <Text> UP </Text>
               </Row>
@@ -75,21 +72,30 @@ class RoundCard extends React.Component {
               </Row>
             </div>
 
-            <div>
-              <Row><Text>LAST PRICE</Text></Row>
-
+            <div className='round_border_card'>
               <Row>
+                <Text className='opacity_half bold'>LAST PRICE</Text>
+              </Row>
+
+              <Row className='p_top'>
                 <Col span={12}>
-                  <Row>${this.state.price}</Row>
+                  <Row className={isUp ? 'color_spring_green size_large' : 'color_red size_large'}>${this.state.price}</Row>
                 </Col>
                 <Col span={12}>
-                  <Row justify='center'>
-                    <ArrowUpOutlined /> ${this.state.priceChangeFromLock}
+                  <Row
+                    className={isUp ? 'up_component small_price' : 'down_component small_price'}
+                    justify='center'
+                  >
+                    {isUp
+                      ?<ArrowUpOutlined />                   
+                      :<ArrowDownOutlined /> 
+                    }
+                    ${this.state.priceChangeFromLock}
                   </Row>
                 </Col>
               </Row>
 
-              <Row>
+              <Row className='p_top'>
                 <Col span={12}>
                   <Row>Locked Price:</Row>
                 </Col>
@@ -100,15 +106,17 @@ class RoundCard extends React.Component {
 
               <Row>
                 <Col span={12}>
-                  <Row>Prize Pool:</Row>
+                  <Row>
+                    <Text className='bold'>Prize Pool:</Text>
+                    </Row>
                 </Col>
                 <Col span={12}>
-                  <Row justify='center'>{this.state.prizePool} SOL</Row>
+                  <Row className='bold' justify='center'>{this.state.prizePool} SOL</Row>
                 </Col>
               </Row>
             </div>
 
-            <div>
+            <div className='down_component'>
               <Row justify='center'>
                 <Text> {this.state.payoutDown}x Payout </Text>
               </Row>
@@ -144,7 +152,7 @@ class RoundCard extends React.Component {
               showInfo={false}
             />
 
-            <div>
+            <div className='up_component'>
               <Row justify='center'>
                 <Text> UP </Text>
               </Row>
@@ -242,11 +250,11 @@ class RoundCard extends React.Component {
                   </Row>
                 </Col>
               </Row>
-              <Button type='primary' block>
+              <Button className='up_component'  block>
                 Enter UP
               </Button>
 
-              <Button type='primary' block>
+              <Button className='down_component'  block>
                 Enter DOWN
               </Button>
             </div>
@@ -262,8 +270,7 @@ class RoundCard extends React.Component {
           </Layout>
         </Card>
       )
-      else
-      if (this.state.cardState == 'Later')
+    else if (this.state.cardState == 'Later')
       return (
         <Card style={{ width: 300 }}>
           <Layout>
@@ -298,9 +305,7 @@ class RoundCard extends React.Component {
             </div>
 
             <div>
-              <Row>
-                ENTER START IN: .....
-              </Row>
+              <Row>ENTER START IN: .....</Row>
             </div>
 
             <div>

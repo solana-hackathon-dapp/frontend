@@ -10,9 +10,14 @@ import ComponentRenderer from "ComponentRenderer.js";
 import ThankYouPage from "ThankYouPage.js";
 import SocketComponent from "./components/sockets/socketComponent";
 
+import { AppDispatch } from 'store'
+import { useDispatch } from 'react-redux'
+
 import "./App.css";
 
 function App() {
+  const dispatch = useDispatch<AppDispatch>()
+
   return (
     <Router>
       <Switch>

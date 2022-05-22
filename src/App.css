@@ -11,3 +11,62 @@
   display:flex; 
   align-items:center;
 }
+
+.expired {
+  opacity: 0.5;
+}
+
+.opacity_half {
+  opacity: 0.5;
+}
+
+.round_border_card {
+  border-radius: 25px;
+  border: 2px solid #73AD21;
+  padding: 20px;
+}
+
+.up_component {
+  background-color:rgb(0, 255, 127, 0.8);
+  border-radius: 25px;
+  border: 2px;
+  justify-content: center;
+}
+
+.normal_component {
+  border-radius: 25px;
+  border: 2px;
+  background-color: rgba(118, 118, 118, 0.7);
+}
+
+.down_component {
+  background-color: rgb(255, 69, 0, 0.7);
+  border-radius: 25px;
+  border: 2px;
+  justify-content: center;
+}
+
+.small_price {
+  padding-top: 12px;
+  height: 50px;
+}
+
+.color_spring_green {
+  color: rgb(0, 255, 127, 0.6);
+}
+
+.color_red {
+  color: rgb(255, 69, 0, 0.7);
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.size_large {
+  font-size: xx-large;
+}
+
+.p_top {
+  padding-top: 10px;
+}

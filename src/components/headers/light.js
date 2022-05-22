@@ -13,6 +13,9 @@ import { ReactComponent as CloseIcon } from "feather-icons/dist/icons/x.svg";
 import { useCallback, useEffect, useState } from "react";
 import { useWalletKit, useSolana, useConnectedWallet } from "@gokiprotocol/walletkit";
 import { Button, Col, Row } from "antd";
+import { AppDispatch } from 'store'
+import { useDispatch } from 'react-redux'
+import { setWalletInfo, WalletState } from '../../store/wallet.reducer'
 
 const Header = tw.header`
   flex justify-between items-center
@@ -75,33 +78,35 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
    * If you manipulate links here, all the styling on the links is already done for you. If you pass links yourself though, you are responsible for styling the links or use the helper styled components that are defined here (NavLink)
    */
 
-  // State: balance (type = number, default value = 0)
-  const [balance, setBalance] = useState(0);
   // Goki hooks
+  const dispatch = useDispatch();
   const wallet = useConnectedWallet();
   const { connect } = useWalletKit();
   const { disconnect, providerMut } = useSolana();
 
-  const fetchBalance = useCallback(async () => {
-    // TODO: fetch balance
-    if (wallet && providerMut) {
-      let balance = await providerMut.connection.getBalance(wallet.publicKey);
-      return setBalance(balance);
+  const fetchWalletInfo = useCallback(async () => {
+    if (!wallet || !providerMut) return
+    const lamports = await providerMut.connection.getBalance(wallet.publicKey)
+    let walletInfo = {
+      walletAddress: wallet.publicKey.toBase58(),
+      balance: lamports,
     }
-    setBalance(0);
-  }, [providerMut, wallet]);
+    dispatch(setWalletInfo(walletInfo))
+    document.getElementById("wallet_balance").innerHTML = "Your balance: " + walletInfo.balance;
+  }, [providerMut, wallet])
 
   useEffect(() => {
-    fetchBalance();
-  }, [fetchBalance]);
+    fetchWalletInfo()
+  }, [fetchWalletInfo])
 
   const defaultLinks = [
     <NavLinks key={1}>
       <NavLink href="/#whitepaper">Whitepaper</NavLink>
       <NavLink>
-        {wallet ? (
-              <Button type="primary" css={roundedHeaderButton && tw`rounded-full`} onClick={disconnect}>Disconnect
-            </Button>
+        {wallet ? 
+          (
+            <Button type="primary" css={roundedHeaderButton && tw`rounded-full`} onClick={disconnect}>Disconnect
+            </Button> 
           ) : (
           // Call connectWallet function when click Button
           <Button type="primary" css={roundedHeaderButton && tw`rounded-full`}  onClick={connect}>
@@ -109,6 +114,7 @@ export default ({ roundedHeaderButton = false, logoLink, links, className, colla
           </Button>
         )}
       </NavLink>
+      <span id="wallet_balance"></span>
     </NavLinks>
   ];
 

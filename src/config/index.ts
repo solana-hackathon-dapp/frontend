@@ -13,9 +13,18 @@ export const NODE_URL = clusterApiUrl(DEFAULT_CLUSTER)
 export type RoundData = {
   address: string
   mint: string
-  amount: number
-  startTime: number
-  endTime: number
+  startTimestamp: number
+  lockTimestamp: number
+  closeTimestamp: number
+
+  lockPrice: number
+  closePrice: number
+  epoch: number
+  totalAmount: number
+  upAmount: number
+  downAmount: number
+  rewardBaseCalAmount: number
+  rewardAmount: number
 }
 
 // Function support
