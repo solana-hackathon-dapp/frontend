@@ -87,10 +87,10 @@ class CustomSlider extends React.Component {
       )
     }
 
-    let { rounds } = this.state.rounds
-    if (!rounds) rounds = []
-    console.log(this.state.rounds)
-    console.log(rounds)
+    // let { rounds } = this.state.rounds
+    // if (!rounds) rounds = []
+    // console.log(this.state.rounds)
+    // console.log(rounds)
 
     return (
       <>
@@ -114,14 +114,13 @@ class CustomSlider extends React.Component {
           }}
         >
           <div>
-            {Object.keys(rounds).map(address => (
-              <RoundCard
-                key={address}
-                cardState={rounds.cardState}
-                cardId={'#' + rounds.epoch}
-                seconds={rounds.cardDuration}
-              />
-            ))}
+            <RoundCard cardState='Live' cardId='2' startTimeInSeconds='0' />
+          </div>
+          <div>
+            <RoundCard cardState='Next' cardId='3' startTimeInSeconds='0' />
+          </div>
+          <div>
+          <RoundCard cardState='Later' cardId='6' startTimeInSeconds='0' />
           </div>
         </Carousel>
         ;

@@ -40,19 +40,13 @@ const PredictionTab = () => {
 
     console.log(rounds);
 
-    const model = {
-        rounds: {},
-        a: false
-    }
-    model.rounds = rounds;
-
     return (
         <>
             <div>
                 {defaultPrice}
                 {defaultInfo}
             </div>
-            <CustomSlider model={model}/>
+            <CustomSlider rounds={rounds}/>
         </>
     )
 }
