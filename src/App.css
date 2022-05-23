@@ -13,7 +13,8 @@
 }
 
 .expired {
-  opacity: 0.5;
+  background-color: #ffffff;
+  opacity: 0.4;
 }
 
 .opacity_half {
@@ -26,8 +27,13 @@
   padding: 20px;
 }
 
+.border_color_rainbow
+{
+  border: 2px solid #2d4d88;
+}
+
 .up_component {
-  background-color:rgb(0, 255, 127, 0.8);
+  background-color:rgba(7, 196, 102, 0.8);
   border-radius: 25px;
   border: 2px;
   justify-content: center;
@@ -40,7 +46,7 @@
 }
 
 .down_component {
-  background-color: rgb(255, 69, 0, 0.7);
+  background-color: rgba(207, 62, 10, 0.7);
   border-radius: 25px;
   border: 2px;
   justify-content: center;
@@ -52,7 +58,7 @@
 }
 
 .color_spring_green {
-  color: rgb(0, 255, 127, 0.6);
+  color: rgba(24, 146, 85, 0.6);
 }
 
 .color_red {
@@ -69,4 +75,16 @@
 
 .p_top {
   padding-top: 10px;
+}
+
+.p_top_5 {
+  padding-top: 5px;
+}
+
+.m_top {
+  margin-top: 10px;
+}
+
+.m_top_5 {
+  margin-top: 5px;
 }

@@ -4,7 +4,7 @@ import tw from 'twin.macro'
 import { css } from 'styled-components/macro' //eslint-disable-line
 
 import { Button, Tabs, Row, Col } from 'antd'
-import Prediction from './prediction.js'
+import PredictionTab from './predictionTab.tsx'
 import Layout from 'antd/lib/layout/layout'
 import CreateRound from '../../view/initRound'
 
@@ -27,7 +27,7 @@ export default () => (
 
       <Tabs type='card' centered>
         <TabPane tab='Prediction SOL' key='1'>
-          <Prediction />
+          <PredictionTab />
         </TabPane>
         <TabPane tab='Chainlink Chart' key='2'>
           <p>Content of Tab Pane 2</p>

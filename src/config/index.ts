@@ -25,6 +25,9 @@ export type RoundData = {
   downAmount: number
   rewardBaseCalAmount: number
   rewardAmount: number
+
+  cardState: string
+  cardDuration: number
 }
 
 // Function support

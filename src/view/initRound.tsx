@@ -7,7 +7,7 @@ import { web3, utils, BN } from '@project-serum/anchor'
 import { Button, Col, DatePicker, Modal, Row, Space, Typography, Input, notification } from 'antd'
 import { UserAddOutlined } from '@ant-design/icons'
 
-import { setRound } from 'store/candidates.reducer'
+import { setRound } from 'store/rounds.reducer'
 import { getProgram } from '../config'
 
 const CreateCandidate = () => {
@@ -78,6 +78,9 @@ const CreateCandidate = () => {
                     downAmount: 0,
                     rewardBaseCalAmount: 0,
                     rewardAmount: 0,
+
+                    cardState: 'Next',
+                    cardDuration: duration,
                 }),
             )
             setVisible(false)
