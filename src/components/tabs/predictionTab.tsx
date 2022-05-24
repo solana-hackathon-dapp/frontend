@@ -38,8 +38,6 @@ const PredictionTab = () => {
         </Row>
     )
 
-    console.log(rounds);
-
     return (
         <>
             <div>

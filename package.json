@@ -13,6 +13,7 @@
     "@solana/web3.js": "^1.39.1",
     "@types/chai": "^4.3.1",
     "antd": "^4.18.2",
+    "axios": "^0.27.2",
     "feather-icons": "^4.29.0",
     "framer-motion": "^6.3.3",
     "js-to-ts-converter": "^0.18.2",

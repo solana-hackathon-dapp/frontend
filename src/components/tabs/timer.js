@@ -20,9 +20,9 @@ function MyTimer (expiryTimestamp) {
 
   function Reset () {
     // Restarts to 5 minutes timer
-    const time = new Date()
-    time.setSeconds(time.getSeconds() + 300)
-    restart(time, true);
+    // const time = new Date()
+    // time.setSeconds(time.getSeconds() + expiryTimestamp)
+    // restart(time, true);
   }
 
   return (
@@ -34,8 +34,8 @@ function MyTimer (expiryTimestamp) {
   )
 }
 
-export default () => {
+export default ({duration}) => {
   const time = new Date()
-  time.setSeconds(time.getSeconds() + 300)
+  time.setSeconds(time.getSeconds() + duration)
   return MyTimer(time)
 }

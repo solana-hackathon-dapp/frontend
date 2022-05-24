@@ -30,6 +30,17 @@ export type RoundData = {
   cardDuration: number
 }
 
+export type BallotData = {
+  address: string,
+  round: string,
+  authority: string,
+  amount: number,
+  // 1 - up, 2 - down
+  pos: number,
+  // 0 - not claimed, 1 - claimed
+  claimed: number,
+}
+
 // Function support
 export const getProvider = (wallet: any) => {
   const connection = new anchor.web3.Connection(NODE_URL, DEFAULT_COMMITMENT)

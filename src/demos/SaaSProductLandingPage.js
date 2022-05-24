@@ -7,7 +7,7 @@ import Features from 'components/features/ThreeColWithSideImage.js'
 import GetStarted from 'components/cta/GetStarted'
 import Footer from 'components/footers/MiniCenteredFooter.js'
 
-import Tabs from 'components/tabs/Tabs.js'
+import Tabs from 'components/tabs/Tabs'
 
 export default () => {
   return (

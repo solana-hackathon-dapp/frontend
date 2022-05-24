@@ -10,7 +10,7 @@ export const roundSlice = createSlice({
   initialState,
   reducers: {
     setRound: (state, action: PayloadAction<RoundData>) => {
-      state[action.payload.address] = action.payload
+      state[action.payload.epoch] = action.payload
       return state
     },
   },

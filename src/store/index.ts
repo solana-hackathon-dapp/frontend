@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 
 import walletReducer from './wallet.reducer'
 import rounds from './rounds.reducer'
+import ballot from './ballot.reducer'
 
 export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
@@ -11,6 +12,7 @@ export const store = configureStore({
   reducer: {
     wallet: walletReducer,
     rounds,
+    ballot,
   },
 })
 

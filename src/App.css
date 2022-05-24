@@ -32,6 +32,11 @@
   border: 2px solid #2d4d88;
 }
 
+.border_color_gray
+{
+  border: 2px solid #303339;
+}
+
 .up_component {
   background-color:rgba(7, 196, 102, 0.8);
   border-radius: 25px;

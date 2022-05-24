@@ -6,19 +6,12 @@ import RoundCard from './roundCard.js'
 import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
 
+import './Slider.css'
+
 const { Text } = Typography
 
 class CustomSlider extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      rounds: props.rounds
-    }
-  }
-
-  state = {
-    rounds: this.props.rounds
-  }
+  state = { additionalTransfrom: 0 }
 
   render () {
     const responsive = {
@@ -46,7 +39,7 @@ class CustomSlider extends React.Component {
           carouselItemWidth *
             (this.Carousel.state.totalItems -
               this.Carousel.state.slidesToShow) +
-            150
+            5
         )
         value = maxTranslateX / 100 // calculate the unit of transform for the slider
       }
@@ -60,7 +53,7 @@ class CustomSlider extends React.Component {
             max={
               (carouselItemWidth *
                 (carouselState.totalItems - carouselState.slidesToShow) +
-                (this.state.additionalTransfrom === 150 ? 0 : 150)) /
+                (this.state.additionalTransfrom === 5 ? 0 : 5)) /
               value
             }
             onChange={e => {
@@ -69,10 +62,7 @@ class CustomSlider extends React.Component {
               }
               const nextTransform = e.target.value * value
               const nextSlide = Math.round(nextTransform / carouselItemWidth)
-              if (
-                e.target.value == 0 &&
-                this.state.additionalTransfrom === 150
-              ) {
+              if (e.target.value == 0 && this.state.additionalTransfrom === 5) {
                 this.Carousel.isAnimationAllowed = true
                 this.setState({ additionalTransfrom: 0 })
               }
@@ -87,41 +77,49 @@ class CustomSlider extends React.Component {
       )
     }
 
-    // let { rounds } = this.state.rounds
-    // if (!rounds) rounds = []
-    // console.log(this.state.rounds)
-    // console.log(rounds)
+    const rounds = this.props.rounds
+    let roundArray = Object.values(rounds)
+    var roundsData = []
+    for (var index = 0; index < roundArray.length; index++) {
+      if (roundArray[index].epoch > roundArray.length - 7) {
+        roundsData.push(roundArray[index])
+      }
+    }
 
     return (
       <>
         <Carousel
-          ssr={false}
+          ssr={true}
           ref={el => (this.Carousel = el)}
           partialVisible={false}
           customButtonGroup={<CustomSlider />}
+          autoPlay={false}
+          focusOnSelect={true}
+          centerMode={true}
           itemClass='image-item'
           itemAriaLabel='Image-aria-label'
           responsive={responsive}
           containerClass='carousel-container-with-scrollbar'
           additionalTransfrom={-this.state.additionalTransfrom}
           beforeChange={nextSlide => {
-            if (nextSlide !== 0 && this.state.additionalTransfrom !== 150) {
-              this.setState({ additionalTransfrom: 150 })
+            if (nextSlide !== 0 && this.state.additionalTransfrom !== 5) {
+              this.setState({ additionalTransfrom: 5 })
             }
-            if (nextSlide === 0 && this.state.additionalTransfrom === 150) {
+            if (nextSlide === 0 && this.state.additionalTransfrom === 5) {
               this.setState({ additionalTransfrom: 0 })
             }
           }}
         >
-          <div>
-            <RoundCard cardState='Live' cardId='2' startTimeInSeconds='0' />
-          </div>
-          <div>
-            <RoundCard cardState='Next' cardId='3' startTimeInSeconds='0' />
-          </div>
-          <div>
-          <RoundCard cardState='Later' cardId='6' startTimeInSeconds='0' />
-          </div>
+          {roundsData.map(round => (
+            <div>
+              <RoundCard
+                key={round.epoch}
+                cardState={round.cardState}
+                cardId={round.epoch}
+                duration={round.cardDuration}
+              />
+            </div>
+          ))}
         </Carousel>
         ;
       </>
