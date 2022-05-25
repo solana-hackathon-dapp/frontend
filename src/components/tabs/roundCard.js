@@ -27,15 +27,16 @@ const { Meta } = Card
 class RoundCard extends React.Component {
   state = {
     seconds: 0,
-    price: 66.2,
-    priceChangeFromLock: 0.2,
+    price: 0,
+    priceChangeFromLock: 0.0,
   }
 
   async tick () {
     if (this.props.cardState == 'Live') {
       let price = await this.getPrice()
       let priceFloat = Number(price).toFixed(2);
-      const priceChangeFromLock = price - lockedPrice
+      console.log(this.props)
+      const priceChangeFromLock = price - this.props.lockPrice  
       let priceChangeFloat = Number(priceChangeFromLock).toFixed(2);
 
       this.setState(state => ({
@@ -69,14 +70,17 @@ class RoundCard extends React.Component {
     const cardState = this.props.cardState
     const cardId = this.props.cardId
     const cardDuration = this.props.duration
-    const payoutDown = this.props.payoutDown;
-    const payoutUp = this.props.payoutUp;
+    const payoutDown = Number(this.props.payoutDown).toFixed(1);
+    const payoutUp = Number(this.props.payoutUp).toFixed(1);
+
     const prizePool = this.props.prizePool
-    const lockedPrice = this.props.lockedPrice;
-    let lockedPriceFloat = Number(lockedPrice).toFixed(2);
+    const lockPrice = this.props.lockPrice;
+    let lockedPriceFloat = Number(lockPrice).toFixed(2);
+
+    console.log(lockPrice);
 
     const fiveMinute = 300
-    const isUp = this.state.price > lockedPriceFloat ? true : false
+    const isUp = this.state.price > lockPrice ? true : false
 
     if (cardState == 'Live')
       return (

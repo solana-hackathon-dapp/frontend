@@ -120,6 +120,7 @@ class CustomSlider extends React.Component {
                 payoutDown={round.payoutDown}
                 payoutUp={round.payoutUp}
                 prizePool={round.totalAmount}
+                lockPrice={round.lockPrice}
               />
             </div>
           ))}
