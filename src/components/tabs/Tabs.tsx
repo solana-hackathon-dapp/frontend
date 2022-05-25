@@ -9,6 +9,7 @@ import StartRound from '../../view/startRound'
 import CreateRound from '../../view/initRound'
 import LockRound from '../../view/lockRound'
 import EndRound from '../../view/endRound'
+import ClaimReward from '../../view/claim'
 
 import { AppState } from 'store'
 import { useSelector } from 'react-redux'
@@ -45,6 +46,9 @@ const TabsPanel = () => {
           </Col>
           <Col>
             <EndRound/>
+          </Col>
+          <Col>
+            <ClaimReward/>
           </Col>
         </Row>
 
