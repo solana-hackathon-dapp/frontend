@@ -27,24 +27,21 @@ const { Meta } = Card
 class RoundCard extends React.Component {
   state = {
     seconds: 0,
-    payoutUp: 1.3,
-    payoutDown: 2,
     price: 66.2,
     priceChangeFromLock: 0.2,
-    lockedPrice: 66.0,
-    prizePool: 200
   }
 
   async tick () {
-    if (this.state.cardState == 'Next') {
-      const price = await this.getPrice()
-      const lockedPrice = this.state.lockedPrice
+    if (this.props.cardState == 'Live') {
+      let price = await this.getPrice()
+      let priceFloat = Number(price).toFixed(2);
       const priceChangeFromLock = price - lockedPrice
+      let priceChangeFloat = Number(priceChangeFromLock).toFixed(2);
 
       this.setState(state => ({
         seconds: state.seconds + 10,
-        price: price,
-        priceChangeFromLock: priceChangeFromLock
+        price: priceFloat,
+        priceChangeFromLock: priceChangeFloat
       }))
     }
   }
@@ -60,6 +57,7 @@ class RoundCard extends React.Component {
   }
 
   componentDidMount () {
+    this.tick();
     this.interval = setInterval(() => this.tick(), 10000)
   }
 
@@ -71,9 +69,14 @@ class RoundCard extends React.Component {
     const cardState = this.props.cardState
     const cardId = this.props.cardId
     const cardDuration = this.props.duration
+    const payoutDown = this.props.payoutDown;
+    const payoutUp = this.props.payoutUp;
+    const prizePool = this.props.prizePool
+    const lockedPrice = this.props.lockedPrice;
+    let lockedPriceFloat = Number(lockedPrice).toFixed(2);
 
     const fiveMinute = 300
-    const isUp = this.state.price > this.state.lockedPrice ? true : false
+    const isUp = this.state.price > lockedPriceFloat ? true : false
 
     if (cardState == 'Live')
       return (
@@ -88,7 +91,7 @@ class RoundCard extends React.Component {
                   </Typography.Title>
                 </div>
               </Col>
-              <Col span={6}></Col>
+              <Col span={6}> <Timer duration={cardDuration} /> </Col>
               <Col span={6} offset={4}>
                 <Typography.Text style={{ marginTop: 5 }}>
                   #{cardId}
@@ -105,7 +108,7 @@ class RoundCard extends React.Component {
                 <Text> UP </Text>
               </Row>
               <Row justify='center'>
-                <Text> {this.state.payoutUp}x Payout </Text>
+                <Text> {payoutUp}x Payout </Text>
               </Row>
             </div>
 
@@ -150,7 +153,7 @@ class RoundCard extends React.Component {
                   <Row>Locked Price:</Row>
                 </Col>
                 <Col span={12}>
-                  <Row justify='center'>${this.state.lockedPrice}</Row>
+                  <Row justify='center'>${lockedPriceFloat}</Row>
                 </Col>
               </Row>
 
@@ -162,7 +165,7 @@ class RoundCard extends React.Component {
                 </Col>
                 <Col span={12}>
                   <Row className='bold' justify='center'>
-                    {this.state.prizePool} SOL
+                    {prizePool} SOL
                   </Row>
                 </Col>
               </Row>
@@ -170,7 +173,7 @@ class RoundCard extends React.Component {
 
             <div className={!isUp ? 'down_component' : 'normal_component'}>
               <Row justify='center'>
-                <Text> {this.state.payoutDown}x Payout </Text>
+                <Text> {payoutDown}x Payout </Text>
               </Row>
               <Row justify='center'>
                 <Text> DOWN </Text>
@@ -205,7 +208,7 @@ class RoundCard extends React.Component {
                 <Text> UP </Text>
               </Row>
               <Row justify='center'>
-                <Text> {this.state.payoutUp}x Payout </Text>
+                <Text> {payoutUp}x Payout </Text>
               </Row>
             </div>
 
@@ -250,7 +253,7 @@ class RoundCard extends React.Component {
                   <Row>Locked Price:</Row>
                 </Col>
                 <Col span={12}>
-                  <Row justify='center'>${this.state.lockedPrice}</Row>
+                  <Row justify='center'>${lockedPriceFloat}</Row>
                 </Col>
               </Row>
 
@@ -262,7 +265,7 @@ class RoundCard extends React.Component {
                 </Col>
                 <Col span={12}>
                   <Row className='bold' justify='center'>
-                    {this.state.prizePool} SOL
+                    {prizePool} SOL
                   </Row>
                 </Col>
               </Row>
@@ -270,7 +273,7 @@ class RoundCard extends React.Component {
 
             <div className={!isUp ? 'down_component' : 'normal_component'}>
               <Row justify='center'>
-                <Text> {this.state.payoutDown}x Payout </Text>
+                <Text> {payoutDown}x Payout </Text>
               </Row>
               <Row justify='center'>
                 <Text> DOWN </Text>
@@ -292,7 +295,7 @@ class RoundCard extends React.Component {
                   </Typography.Title>
                 </div>
               </Col>
-              <Col span={6}></Col>
+              <Col span={6}> <Timer duration={cardDuration} /></Col>
               <Col span={6} offset={4}>
                 <Typography.Text style={{ marginTop: 10 }}>
                   #{cardId}
@@ -300,12 +303,12 @@ class RoundCard extends React.Component {
               </Col>
             </Row>
 
-            <div className={isUp ? 'up_component' : 'normal_component'}>
+            <div className='up_component'>
               <Row justify='center'>
                 <Text> UP </Text>
               </Row>
               <Row justify='center'>
-                <Text> {this.state.payoutUp}x Payout </Text>
+                <Text> {payoutUp}x Payout </Text>
               </Row>
             </div>
 
@@ -318,7 +321,7 @@ class RoundCard extends React.Component {
                 </Col>
                 <Col span={12}>
                   <Row className='bold' justify='center'>
-                    {this.state.prizePool} SOL
+                    {prizePool} SOL
                   </Row>
                 </Col>
               </Row>
@@ -328,9 +331,9 @@ class RoundCard extends React.Component {
               <SetPostition isBetUp={false} epochChoose={cardId}/>
             </div>
 
-            <div className={!isUp ? 'down_component' : 'normal_component'}>
+            <div className='down_component'>
               <Row justify='center'>
-                <Text> {this.state.payoutDown}x Payout </Text>
+                <Text> {payoutDown}x Payout </Text>
               </Row>
               <Row justify='center'>
                 <Text> DOWN </Text>
@@ -365,7 +368,7 @@ class RoundCard extends React.Component {
                 <Text> UP </Text>
               </Row>
               <Row justify='center'>
-                <Text> {this.state.payoutUp}x Payout </Text>
+                <Text> {payoutUp}x Payout </Text>
               </Row>
             </div>
 
@@ -380,7 +383,7 @@ class RoundCard extends React.Component {
 
             <div className='expired'>
               <Row justify='center'>
-                <Text> {this.state.payoutDown}x Payout </Text>
+                <Text> {payoutDown}x Payout </Text>
               </Row>
               <Row justify='center'>
                 <Text> DOWN </Text>

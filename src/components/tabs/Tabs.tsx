@@ -3,10 +3,12 @@ import tw from 'twin.macro'
 
 import { Button, Tabs, Row, Col } from 'antd'
 import PredictionTab from './predictionTab'
+import DataTab from './data'
 import Layout from 'antd/lib/layout/layout'
 import StartRound from '../../view/startRound'
 import CreateRound from '../../view/initRound'
 import LockRound from '../../view/lockRound'
+import EndRound from '../../view/endRound'
 
 import { AppState } from 'store'
 import { useSelector } from 'react-redux'
@@ -42,7 +44,7 @@ const TabsPanel = () => {
             <LockRound/>
           </Col>
           <Col>
-            <Button block>End Round</Button>
+            <EndRound/>
           </Col>
         </Row>
 
@@ -50,7 +52,10 @@ const TabsPanel = () => {
           <TabPane tab='Prediction SOL' key='1'>
             <PredictionTab />
           </TabPane>
-          <TabPane tab='Chainlink Chart' key='2'>
+          <TabPane tab='Data' key='2'>
+            <DataTab/>
+          </TabPane>
+          <TabPane tab='Chainlink Chart' key='3'>
             <p>Content of Tab Pane 2</p>
             <p>Content of Tab Pane 2</p>
             <p>Content of Tab Pane 2</p>

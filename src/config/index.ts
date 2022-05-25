@@ -1,4 +1,5 @@
 import * as anchor from '@project-serum/anchor'
+import { Float } from '@solana/buffer-layout'
 import { clusterApiUrl } from '@solana/web3.js'
 
 import { IDL } from './idl'
@@ -25,6 +26,9 @@ export type RoundData = {
   downAmount: number
   rewardBaseCalAmount: number
   rewardAmount: number
+
+  payoutUp: number
+  payoutDown: number
 
   cardState: string
   cardDuration: number

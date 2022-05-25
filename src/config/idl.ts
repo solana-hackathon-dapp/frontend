@@ -111,7 +111,7 @@ export type BoContract = {
         },
         {
           "name": "price",
-          "type": "i64"
+          "type": "f64"
         }
       ]
     },
@@ -152,7 +152,7 @@ export type BoContract = {
       "args": [
         {
           "name": "price",
-          "type": "i64"
+          "type": "f64"
         }
       ]
     },
@@ -193,7 +193,7 @@ export type BoContract = {
       "args": [
         {
           "name": "price",
-          "type": "i64"
+          "type": "f64"
         }
       ]
     },
@@ -443,11 +443,11 @@ export type BoContract = {
           },
           {
             "name": "lockPrice",
-            "type": "i64"
+            "type": "f64"
           },
           {
             "name": "closePrice",
-            "type": "i64"
+            "type": "f64"
           },
           {
             "name": "epoch",
@@ -639,7 +639,7 @@ export const IDL: BoContract = {
         },
         {
           "name": "price",
-          "type": "i64"
+          "type": "f64"
         }
       ]
     },
@@ -680,7 +680,7 @@ export const IDL: BoContract = {
       "args": [
         {
           "name": "price",
-          "type": "i64"
+          "type": "f64"
         }
       ]
     },
@@ -721,7 +721,7 @@ export const IDL: BoContract = {
       "args": [
         {
           "name": "price",
-          "type": "i64"
+          "type": "f64"
         }
       ]
     },
@@ -971,11 +971,11 @@ export const IDL: BoContract = {
           },
           {
             "name": "lockPrice",
-            "type": "i64"
+            "type": "f64"
           },
           {
             "name": "closePrice",
-            "type": "i64"
+            "type": "f64"
           },
           {
             "name": "epoch",

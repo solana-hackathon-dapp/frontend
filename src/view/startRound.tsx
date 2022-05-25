@@ -80,6 +80,9 @@ const StartRound = () => {
                     rewardBaseCalAmount: 0,
                     rewardAmount: 0,
 
+                    payoutDown: 0,
+                    payoutUp: 0,
+
                     cardState: 'Next',
                     cardDuration: duration,
                 }),

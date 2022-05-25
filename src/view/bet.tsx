@@ -68,8 +68,20 @@ const setPostition = ({ epochChoose, isBetUp }: { epochChoose: string, isBetUp: 
           .signers([])
           .rpc();
 
+        const totalAmount = roundData.totalAmount + Number(amount)
+        const downAmount = roundData.downAmount;
+        const upAmount = roundData.upAmount + Number(amount);
+
+        const payoutUp = totalAmount / upAmount;
+        const payoutDown = totalAmount / downAmount;
+
         setVisible(false)
-        dispatch(setRound({ ...roundData, upAmount: roundData.upAmount + Number(amountWithDecimal), totalAmount: roundData.totalAmount + Number(amountWithDecimal) }))
+        dispatch(setRound({
+          ...roundData, upAmount: roundData.upAmount + Number(amount),
+          totalAmount: roundData.totalAmount + Number(amount),
+          payoutUp: payoutUp,
+          payoutDown: payoutDown,
+        }))
         dispatch(
           setBallot({
             address: ballot.toBase58(),
@@ -108,8 +120,21 @@ const setPostition = ({ epochChoose, isBetUp }: { epochChoose: string, isBetUp: 
           .signers([])
           .rpc();
 
+        const totalAmount = roundData.totalAmount + Number(amount)
+        const downAmount = roundData.downAmount + Number(amount);
+        const upAmount = roundData.upAmount;
+
+        const payoutUp = totalAmount / upAmount;
+        const payoutDown = totalAmount / downAmount;
+
         setVisible(false)
-        dispatch(setRound({ ...roundData, downAmount: roundData.downAmount + Number(amountWithDecimal), totalAmount: roundData.totalAmount + Number(amountWithDecimal) }))
+        dispatch(setRound({
+          ...roundData,
+          downAmount: roundData.downAmount + Number(amount),
+          totalAmount: roundData.totalAmount + Number(amount),
+          payoutUp: payoutUp,
+          payoutDown: payoutDown,
+        }))
         dispatch(
           setBallot({
             address: ballot.toBase58(),

@@ -11,7 +11,7 @@ import { AppState } from 'store'
 import { getProgram } from 'config'
 import { setRound } from 'store/rounds.reducer'
 
-const LockRound = () => {
+const EndRound = () => {
   const [epochChoose, setEpochChoose] = useState(1)
   const {
     rounds: { [epochChoose]: roundData },
@@ -19,30 +19,26 @@ const LockRound = () => {
   const dispatch = useDispatch()
   const [visible, setVisible] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [duration, setDuration] = useState(300)
-  const [lockPrice, setLockPrice] = useState('')
   const wallet = useConnectedWallet()
   
-  async function updatePrice () {
+  async function getPrice () {
     const request = `https://api.binance.com/api/v1/ticker/price?symbol=SOLUSDT`
-    return new Promise <string> (async (resolve, reject) => {
+    return new Promise <number> (async (resolve, reject) => {
       axios.get(request).then(res => {
         const priceSOL = res.data
-        const floatPrice = Number(priceSOL.price).toFixed(2);
-        setLockPrice(floatPrice);
-        return resolve(floatPrice.toString())
+        return resolve(priceSOL.price)
       })
     })
   }
 
-  updatePrice()
-
-  const onLockRound = async () => {
+  const onEndRound = async () => {
     if (!wallet) return
     const roundAddress = roundData.address;
     const program = getProgram(wallet)
     const roundPublicKey = new web3.PublicKey(roundAddress)
     const mintPublicKey = new web3.PublicKey(roundData.mint)
+
+    const price = await getPrice();
 
     const [treasurer] = await web3.PublicKey.findProgramAddress(
       [Buffer.from('treasurer'), roundPublicKey.toBuffer()],
@@ -62,15 +58,23 @@ const LockRound = () => {
       owner: treasurer,
     })
 
-    const now = Math.floor(new Date().getTime() / 1000)
-    const lockTime = now.valueOf()
-    const closeTime = lockTime + duration;
-    const lockPriceFloat = parseFloat(lockPrice);
-
     try {
       setLoading(true)
       await program.methods
-        .lockRound(new BN(closeTime), lockPriceFloat)
+        .endRound(price)
+        .accounts({
+          authority: wallet.publicKey,
+          round: roundPublicKey,
+          tokenProgram: utils.token.TOKEN_PROGRAM_ID,
+          associatedTokenProgram: utils.token.ASSOCIATED_PROGRAM_ID,
+          systemProgram: web3.SystemProgram.programId,
+          rent: web3.SYSVAR_RENT_PUBKEY,
+        })
+        .signers([])
+        .rpc();
+
+    await program.methods
+        .calculateRewards(price)
         .accounts({
           authority: wallet.publicKey,
           round: roundPublicKey,
@@ -83,10 +87,9 @@ const LockRound = () => {
         .rpc();
 
       setVisible(false)
-      dispatch(setRound({ ...roundData, lockPrice: Number(lockPrice), closeTimestamp: closeTime,
-      cardState: "Live",
-      cardDuration: duration }))
-      return notification.success({ message: 'Locked Round' })
+      dispatch(setRound({ ...roundData, closePrice: Number(price),
+      cardState: "Expired"}))
+      return notification.success({ message: 'Ended Round' })
     } catch (er: any) {
       return notification.error({ message: er.message })
     } finally {
@@ -94,13 +97,15 @@ const LockRound = () => {
     }
   }
 
+  
+
   return (
     <Fragment>
       <Button type="dashed" onClick={() => setVisible(true)} block loading={loading}>
-        Lock round
+      End round
       </Button>
       <Modal
-        title={<Typography.Title level={4}>Lock round</Typography.Title>}
+        title={<Typography.Title level={4}>End round</Typography.Title>}
         visible={visible}
         onCancel={() => setVisible(false)}
         footer={null}
@@ -117,24 +122,8 @@ const LockRound = () => {
           </Col>
 
           <Col span={24}>
-            <Typography.Text type="secondary">Price: </Typography.Text>
-            <Input
-              style={{ width: '100%' }}
-              value={lockPrice}
-              onChange={(e) => setLockPrice(e.target.value)}
-            />
-          </Col>
-          <Col span={24}>
-            <Typography.Text type="secondary">Time to close: </Typography.Text>
-            <Input
-              style={{ width: '100%' }}
-              value={duration}
-              onChange={(e) => setDuration(parseInt(e.target.value))}
-            />
-          </Col>
-          <Col span={24}>
-            <Button type="primary" onClick={() => onLockRound()} loading={loading} block>
-              Lock Round
+            <Button type="primary" onClick={() => onEndRound()} loading={loading} block>
+            End Round
             </Button>
           </Col>
         </Row>
@@ -143,4 +132,4 @@ const LockRound = () => {
   )
 }
 
-export default LockRound
+export default EndRound

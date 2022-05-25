@@ -117,6 +117,9 @@ class CustomSlider extends React.Component {
                 cardState={round.cardState}
                 cardId={round.epoch}
                 duration={round.cardDuration}
+                payoutDown={round.payoutDown}
+                payoutUp={round.payoutUp}
+                prizePool={round.totalAmount}
               />
             </div>
           ))}
