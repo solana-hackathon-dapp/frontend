@@ -1,38 +1,95 @@
-.App {
-  text-align: center;
-}
+@import "~antd/dist/antd.css";
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.card-container {
+    margin: 20px;
+    border: 1px solid palevioletred;
+    padding: 10px;
   }
+  
+.flex-column{
+  width:100%; 
+  display:flex; 
+  align-items:center;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.expired {
+  background-color: #ffffff;
+  opacity: 0.4;
+}
+
+.opacity_half {
+  opacity: 0.5;
+}
+
+.round_border_card {
+  border-radius: 25px;
+  border: 2px solid #73AD21;
+  padding: 20px;
+}
+
+.border_color_rainbow
+{
+  border: 2px solid #2d4d88;
+}
+
+.border_color_gray
+{
+  border: 2px solid #303339;
+}
+
+.up_component {
+  background-color:rgba(7, 196, 102, 0.8);
+  border-radius: 25px;
+  border: 2px;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.normal_component {
+  border-radius: 25px;
+  border: 2px;
+  background-color: rgba(118, 118, 118, 0.7);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.down_component {
+  background-color: rgba(207, 62, 10, 0.7);
+  border-radius: 25px;
+  border: 2px;
+  justify-content: center;
+}
+
+.small_price {
+  padding-top: 12px;
+  height: 50px;
+}
+
+.color_spring_green {
+  color: rgba(24, 146, 85, 0.6);
+}
+
+.color_red {
+  color: rgb(255, 69, 0, 0.7);
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.size_large {
+  font-size: xx-large;
+}
+
+.p_top {
+  padding-top: 10px;
+}
+
+.p_top_5 {
+  padding-top: 5px;
+}
+
+.m_top {
+  margin-top: 10px;
+}
+
+.m_top_5 {
+  margin-top: 5px;
 }
